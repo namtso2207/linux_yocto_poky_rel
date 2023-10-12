@@ -30,6 +30,8 @@ case $1 in
 		exit 0
 	fi
 	start-stop-daemon --start --background $SSD_OPTIONS
+	#/usr/bin/bluealsa -p a2dp-source -p a2dp-sink -p hfp-hf -p hfp-ag -p hsp-hs -p hsp-ag &
+	start-stop-daemon --start --background --oknodo --quiet --exec /usr/bin/bluealsa -- -p a2dp-source -p a2dp-sink -p hfp-hf -p hfp-ag -p hsp-hs -p hsp-ag
 	echo "${DAEMON##*/}."
   ;;
   stop)
@@ -39,6 +41,8 @@ case $1 in
 		exit 0
 	fi
 	start-stop-daemon --stop $SSD_OPTIONS
+	#killall -9 bluealsa
+	start-stop-daemon --stop --oknodo --quiet --exec /usr/bin/bluealsa -- -p a2dp-source -p a2dp-sink -p hfp-hf -p hfp-ag -p hsp-hs -p hsp-ag
 	echo "${DAEMON##*/}."
   ;;
   restart|force-reload)
